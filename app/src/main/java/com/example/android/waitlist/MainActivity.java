@@ -1,13 +1,11 @@
 package com.example.android.waitlist;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -23,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create local EditText members for mNewGuestNameEditText and mNewPartySizeEditText
 
+    private EditText mNewGuestNameEditText,mNewPartySizeEditText ;
     // TODO (13) Create a constant string LOG_TAG that is equal to the class.getSimpleName()
 
     @Override
@@ -36,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         waitlistRecyclerView = (RecyclerView) this.findViewById(R.id.all_guests_list_view);
 
         // TODO (2) Set the Edit texts to the corresponding views using findViewById
+
+        mNewGuestNameEditText = (EditText) findViewById(R.id.person_name_edit_text);
+
+        mNewPartySizeEditText = (EditText) findViewById(R.id.party_count_edit_text);
 
         // Set layout for the RecyclerView, because it's a list we are using the linear layout
         waitlistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
