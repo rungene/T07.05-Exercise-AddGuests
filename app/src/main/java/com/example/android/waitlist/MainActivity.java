@@ -1,5 +1,6 @@
 package com.example.android.waitlist;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create local EditText members for mNewGuestNameEditText and mNewPartySizeEditText
 
-    private EditText mNewGuestNameEditText,mNewPartySizeEditText ;
+    private EditText mNewGuestNameEditText,mNewPartySizeEditText;
     // TODO (13) Create a constant string LOG_TAG that is equal to the class.getSimpleName()
 
     @Override
@@ -74,13 +75,25 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO (9) First thing, check if any of the EditTexts are empty, return if so
 
+        if (mNewGuestNameEditText.getText().length() == 0 ||
+                mNewPartySizeEditText.getText().length() ==0
+                ){
+            return;
+        }
+
         // TODO (10) Create an integer to store the party size and initialize to 1
+        int partySize = 1;
 
         // TODO (11) Use Integer.parseInt to parse mNewPartySizeEditText.getText to an integer
+try {
+    partySize = Integer.parseInt(mNewPartySizeEditText.getText().toString());
+}catch (Exception e){
 
+}
         // TODO (12) Make sure you surround the Integer.parseInt with a try catch and log any exception
 
         // TODO (14) call addNewGuest with the guest name and party size
+        addNewGuest(mNewGuestNameEditText.getText().toString(),partySize);
 
         // TODO (19) call mAdapter.swapCursor to update the cursor by passing in getAllGuests()
 
@@ -108,6 +121,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO (4) Create a new addGuest method
+
+    private long addNewGuest(String name, int partSize){
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(WaitlistContract.WaitlistEntry.COLUMN_GUEST_NAME,name);
+        cv.put(WaitlistContract.WaitlistEntry.COLUMN_PARTY_SIZE, partSize);
+
+
+   return mDb.insert(WaitlistContract.WaitlistEntry.TABLE_NAME,null,cv);
+    }
 
     // TODO (5) Inside, create a ContentValues instance to pass the values onto the insert query
 
